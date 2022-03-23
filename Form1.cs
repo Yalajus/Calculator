@@ -48,22 +48,38 @@ namespace Calculator
                 case "+":
                     resultValue = resultValue + Convert.ToDouble(textBoxResult.Text);
                     textBoxResult.Text = Convert.ToString(resultValue);
+                    label1.Text = "";
                     break;
                 case "-":
                     resultValue = resultValue - Convert.ToDouble(textBoxResult.Text);
                     textBoxResult.Text = Convert.ToString(resultValue);
+                    label1.Text = "";
                     break;
                 case "*":
                     resultValue = resultValue * Convert.ToDouble(textBoxResult.Text);
                     textBoxResult.Text = Convert.ToString(resultValue);
+                    label1.Text = "";
                     break;
                 case "/":
                     resultValue = resultValue / Convert.ToDouble(textBoxResult.Text);
                     textBoxResult.Text = Convert.ToString(resultValue);
+                    label1.Text = "";
                     break;
                 default:
                     break;
             }
+        }
+
+        private void clearEntryButton(object sender, EventArgs e)
+        {
+            textBoxResult.Text = "0";
+        }
+
+        private void clearButton(object sender, EventArgs e)
+        {
+            textBoxResult.Text = "";
+            resultValue = 0;
+            label1.Text = "";
         }
     }
 }
