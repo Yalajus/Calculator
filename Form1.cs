@@ -12,82 +12,58 @@ namespace Calculator
 {
     public partial class Calculator : Form
     {
+        Double resultValue = 0;
+        String operationPerformed = "";
+        bool isOperationPerformed = false;
+        
         public Calculator()
         {
             InitializeComponent();
 
         }
 
-        public void addition_Click(object sender, EventArgs e)
+        private void buttonClick(object sender, EventArgs e)
         {
-            var first = Convert.ToInt32(numberOne.Text);
-            var second = Convert.ToInt32(numberTwo.Text);
-
-            Result.Text = Convert.ToString(Addition(first, second));
+            if ((textBoxResult.Text == "0") || (isOperationPerformed))
+                textBoxResult.Text = "";
+            isOperationPerformed = false;
+            Button button = (Button) sender;
+            textBoxResult.Text = textBoxResult.Text + button.Text;
         }
 
-        private void subtraction_Click(object sender, EventArgs e)
+        private void operatorClick(object sender, EventArgs e)
         {
-            var first = Convert.ToInt32(numberOne.Text);
-            var second = Convert.ToInt32(numberTwo.Text);
+            Button button = (Button)sender;
+            operationPerformed = button.Text;
+            isOperationPerformed = true;
+            resultValue = Convert.ToDouble(textBoxResult.Text);
 
-            Result.Text = Convert.ToString(Subtraction(first, second));
+            label1.Text = textBoxResult.Text + " " + operationPerformed;
         }
 
-        private void multiplication_Click(object sender, EventArgs e)
+        private void buttonEquals(object sender, EventArgs e)
         {
-            var first = Convert.ToInt32(numberOne.Text);
-            var second = Convert.ToInt32(numberTwo.Text);
-
-            Result.Text = Convert.ToString(Multiplication(first, second));
+            switch (operationPerformed)
+            {
+                case "+":
+                    resultValue = resultValue + Convert.ToDouble(textBoxResult.Text);
+                    textBoxResult.Text = Convert.ToString(resultValue);
+                    break;
+                case "-":
+                    resultValue = resultValue - Convert.ToDouble(textBoxResult.Text);
+                    textBoxResult.Text = Convert.ToString(resultValue);
+                    break;
+                case "*":
+                    resultValue = resultValue * Convert.ToDouble(textBoxResult.Text);
+                    textBoxResult.Text = Convert.ToString(resultValue);
+                    break;
+                case "/":
+                    resultValue = resultValue / Convert.ToDouble(textBoxResult.Text);
+                    textBoxResult.Text = Convert.ToString(resultValue);
+                    break;
+                default:
+                    break;
+            }
         }
-
-        private void division_Click(object sender, EventArgs e)
-        {
-            var first = Convert.ToInt32(numberOne.Text);
-            var second = Convert.ToInt32(numberTwo.Text);
-
-            Result.Text = Convert.ToString(Division(first, second));
-        }
-
-        public int Addition(int a, int b)
-        {
-            int result;
-
-            result = a + b;
-
-            return result;
-        }
-
-        public int Subtraction(int a, int b)
-        {
-            int result;
-
-            result = a - b;
-
-            return result;
-        }
-
-
-        public int Multiplication(int a, int b)
-        {
-            int result;
-
-            result = a * b;
-
-            return result;
-        }
-
-
-        public int Division(int a, int b)
-        {
-            int result;
-
-            result = a / b;
-
-            return result;
-        }
-
-
     }
 }
