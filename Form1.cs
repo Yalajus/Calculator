@@ -15,6 +15,7 @@ namespace Calculator
         Double resultValue = 0;
         String operationPerformed = "";
         bool isOperationPerformed = false;
+        bool hasEqualed = false;
         
         public Calculator()
         {
@@ -22,11 +23,12 @@ namespace Calculator
 
         }
 
-        private void buttonClick(object sender, EventArgs e)
+        public void buttonClick(object sender, EventArgs e)
         {
-            if ((textBoxResult.Text == "0") || (isOperationPerformed))
+            if ((textBoxResult.Text == "0") || (isOperationPerformed) || (hasEqualed))
                 textBoxResult.Text = "";
             isOperationPerformed = false;
+            hasEqualed = false;
             Button button = (Button) sender;
             textBoxResult.Text = textBoxResult.Text + button.Text;
         }
@@ -49,21 +51,25 @@ namespace Calculator
                     resultValue = resultValue + Convert.ToDouble(textBoxResult.Text);
                     textBoxResult.Text = Convert.ToString(resultValue);
                     label1.Text = "";
+                    hasEqualed = true;
                     break;
                 case "-":
                     resultValue = resultValue - Convert.ToDouble(textBoxResult.Text);
                     textBoxResult.Text = Convert.ToString(resultValue);
                     label1.Text = "";
+                    hasEqualed = true;
                     break;
                 case "*":
                     resultValue = resultValue * Convert.ToDouble(textBoxResult.Text);
                     textBoxResult.Text = Convert.ToString(resultValue);
                     label1.Text = "";
+                    hasEqualed = true;
                     break;
                 case "/":
                     resultValue = resultValue / Convert.ToDouble(textBoxResult.Text);
                     textBoxResult.Text = Convert.ToString(resultValue);
                     label1.Text = "";
+                    hasEqualed = true;
                     break;
                 default:
                     break;
@@ -80,6 +86,65 @@ namespace Calculator
             textBoxResult.Text = "";
             resultValue = 0;
             label1.Text = "";
+        }
+
+        private void KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch ((char)e.KeyChar)
+            {
+                case '0':
+                    textBoxResult.Text = textBoxResult.Text + "0";
+                    break;
+                case '1':
+                    buttonClick(buttonOne, e);
+                    break;
+                case '2':
+                    buttonClick(buttonTwo, e);
+                    break;
+                case '3':
+                    buttonClick(buttonThree, e);
+                    break;
+                case '4':
+                    buttonClick(buttonFour, e);
+                    break;
+                case '5':
+                    buttonClick(buttonFive, e);
+                    break;
+                case '6':
+                    buttonClick(buttonSix, e);
+                    break;
+                case '7':
+                    buttonClick(buttonSeven, e);
+                    break;
+                case '8':
+                    buttonClick(buttonEight, e);
+                    break;
+                case '9':
+                    buttonClick(buttonNine, e);
+                    break;
+                case '+':
+                    operatorClick(buttonPlus, e);
+                    break;
+                case '/':
+                    operatorClick(buttonDivide, e);
+                    break;
+                case '*':
+                    operatorClick(buttonTimes, e);
+                    break;
+                case '-':
+                    operatorClick(buttonSubtract, e);
+                    break;
+                case '=':
+                    buttonEquals(buttonEqual, e);
+                    break;
+                case '.':
+                    buttonClick(buttonPeriod, e);
+                    break;
+
+                default: 
+                    break;
+
+            }
         }
     }
 }
