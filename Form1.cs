@@ -83,7 +83,7 @@ namespace Calculator
 
         private void clearButton(object sender, EventArgs e)
         {
-            textBoxResult.Text = "";
+            textBoxResult.Text = "0";
             resultValue = 0;
             label1.Text = "";
         }
