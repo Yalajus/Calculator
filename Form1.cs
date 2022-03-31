@@ -20,6 +20,7 @@ namespace Calculator
         public Calculator()
         {
             InitializeComponent();
+            buttonEqual.Select();
 
         }
 
@@ -30,7 +31,13 @@ namespace Calculator
             isOperationPerformed = false;
             hasEqualed = false;
             Button button = (Button) sender;
+
+            
             textBoxResult.Text = textBoxResult.Text + button.Text;
+            if (textBoxResult.Text.EndsWith("."))
+                buttonPeriod.Enabled = false;
+            buttonEqual.Select();
+
         }
 
         private void operatorClick(object sender, EventArgs e)
@@ -41,6 +48,8 @@ namespace Calculator
             resultValue = Convert.ToDouble(textBoxResult.Text);
 
             label1.Text = textBoxResult.Text + " " + operationPerformed;
+            buttonPeriod.Enabled = true;
+            buttonEqual.Select();
         }
 
         private void buttonEquals(object sender, EventArgs e)
@@ -83,9 +92,10 @@ namespace Calculator
 
         private void clearButton(object sender, EventArgs e)
         {
-            textBoxResult.Text = "";
+            textBoxResult.Text = "0";
             resultValue = 0;
             label1.Text = "";
+            buttonEqual.Select();
         }
 
         private void KeyPress(object sender, KeyPressEventArgs e)
@@ -138,6 +148,9 @@ namespace Calculator
                     buttonEquals(buttonEqual, e);
                     break;
                 case '.':
+
+                    if (buttonPeriod.Enabled == false)
+                        break;
                     buttonClick(buttonPeriod, e);
                     break;
 
